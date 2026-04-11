@@ -17,17 +17,55 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-Explain your design in plain language.
+Platforms such as Spotify and TikTok use a combination of analyzing patterns across users all around the world and aligning song data with what a user normally likes to listen to and watch. In short, it is a combination between collaborative filtering and context-based filtering. This system only focusses on the song itself, and compares it with what you like. In other words, it only takes into consideration, your likes, dislikes, and preferences. It doesn't account for what the million other users around the world like listenting to. 
 
-Some prompts to answer:
+## Song Features
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+Genre: The song's musical category (jazz, rock, pop, etc.)
+Mood: The emotional vibe of the song (happy, sad, chill, agressive)
+Energy: How energetic the musicality feels (0 to 1)
+Valence: How positive and upbeat a song sounds (0 to 1)
+Tempo BPM: Beats per minute (e.g. 80, 135)
+Danceability: How fitting the song is for dancing (0 to 1)
+Acousticness: How electric vs. acoustic (0 to 1)
 
-You can include a simple diagram or bullet list if helpful.
+## User Profile
+- Preferred mood and genre
+- Preferred numerical values for the song features (genre, mood, energy, etc.)
+- Weightage of each feature that matters for the user the most
+
+## Scoring and Ranking
+The recommender scores each song by comparing the features it has and the user's preferences. Numerical features are scored based on proximity. This means that songs that are closer to the user's preferred value score higher. Mood and genre matches give a bonus. Every feature score is multiplied by its weight and finally summed into a relevance score between 0.0 and 1.0. Then, songs are ranked highest to lowest and the best song matches are recommended to the user.
+
+## Algorithm Recipe
+1. +2.0 points if the song's genre matches the user's favorite music genre
+2. +1.0 point if the song's mood matches the user's favorite mood
+3. Proximity score for energy: 1 - abs(song.energy - targert_energy)
+4. Proximity score for valence: 1 - abs(song.valence - target_valence)
+5. Proximity score for tempo: 1 - abs(song.tempo - target_tempo) / 150
+6. All scores multiplied by their feature weights and summed
+
+## Potential Biases:
+1. Genre Bias: System cares too much about the genre, so a perfect song might get dismissed solely because it's not the correct genre
+2. Small Dataset: Only 18 songs in the dataset implies that the same exact songs get re-shuffled as recommendations
+3. Mood Labels: "Chill" and "Relaxed" basically mean the same thing but the system interprets them as two completely different things. 
+
+### Data Flow
+```mermaid
+flowchart TD
+    A[User Profile\npreferences + weights] --> C[Scoring Loop]
+    B[songs.csv\n18 songs] --> C
+    C --> D{For each song}
+    D --> E[Genre match? +2.0]
+    D --> F[Mood match? +1.0]
+    D --> G[Energy proximity score]
+    D --> H[Valence proximity score]
+    D --> I[Tempo proximity score]
+    E & F & G & H & I --> J[Weighted Final Score]
+    J --> K[Rank all songs]
+    K --> L[Return Top K Recommendations]
+```
+
 
 ---
 
