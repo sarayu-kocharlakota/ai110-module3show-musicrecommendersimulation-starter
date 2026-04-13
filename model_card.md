@@ -4,6 +4,8 @@
 
 **MelodyFinder**
 
+---
+
 ## 2. Goal/Finder
 
 Given a listener's favorite mood, genre, and energy level, MelodyFinder recommends the 5 top songs from a set of 18 songs that match the user's preferences best by using a weighted scoring system. 
