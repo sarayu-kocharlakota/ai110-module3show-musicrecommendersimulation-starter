@@ -15,6 +15,7 @@ Given a listener's favorite mood, genre, and energy level, MelodyFinder recommen
 ## 3. Intended Use and Non-Intended Use
 
 MelodyFinder is a music recommender which suggests music to people and is fully context-based. It analyzes a person's favorite music genre, mood, and energy level and recommends music based on that data. MelodyFinder assumes that the listener knows what their genre and mood preferences are and can rate them on a scale of 0 to 1. This project is a simple simulation to display how real music recommenders work. This system is not intended for real music apps or actually telling people the type of music they should listen to. 
+
 ---
 
 ## 4. How the Model Works  
