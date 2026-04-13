@@ -21,6 +21,7 @@ VibeFinder observes three things for each song which are its mood, genre, and it
 ## 4. Data  
 
 The catalog consists of 18 songs which include various different genres such as rock, lofi, pop, metal, EDM, soul, bossa nova, chiptune, R&B, folk, jazz, synthwave, ambient, and indie pop. The song moods include happy, chill, intense, relaxed, moody, focussed, and energetic. The dataset was expanded to 18 songs from originally 10 songs. The dataset is still very small though and so it doesn't represent the full diversity of one's musical taste. For example, the dataset still lacks many music genres such as country, classical, hip-hop songs, and many more. 
+
 ---
 
 ## 5. Strengths  
