@@ -15,20 +15,26 @@ from recommender import load_songs, recommend_songs
 def main() -> None:
     songs = load_songs("data/songs.csv")
 
-    user_prefs = {"genre": "pop", "mood": "happy", "energy": 0.8}
+    profiles = [
+        {"name": "High-Energy Pop",    "genre": "pop",  "mood": "happy",   "energy": 0.9},
+        {"name": "Chill Lofi",         "genre": "lofi", "mood": "chill",   "energy": 0.3},
+        {"name": "Deep Intense Rock",  "genre": "rock", "mood": "intense", "energy": 0.95},
+        {"name": "Conflicting (edgy)", "genre": "edm",  "mood": "sad",     "energy": 0.9},
+    ]
 
-    recommendations = recommend_songs(user_prefs, songs, k=5)
+    for profile in profiles:
+        user_prefs = {k: v for k, v in profile.items() if k != "name"}
+        recommendations = recommend_songs(user_prefs, songs, k=5)
 
-    print("\n🎵 Top Music Recommendations")
-    print(f"   Profile: genre={user_prefs['genre']}, mood={user_prefs['mood']}, energy={user_prefs['energy']}")
-    print("-" * 45)
+        print(f"\n🎵 Profile: {profile['name']}")
+        print("-" * 45)
 
-    for i, rec in enumerate(recommendations, 1):
-        song, score, explanation = rec
-        print(f"\n{i}. {song['title']} by {song['artist']}")
-        print(f"   Score: {score:.2f}")
-        print(f"   Why: {explanation}")
-    print("\n" + "-" * 45)
+        for i, rec in enumerate(recommendations, 1):
+            song, score, explanation = rec
+            print(f"{i}. {song['title']} by {song['artist']}")
+            print(f"   Score: {score:.2f} | {explanation}")
+
+        print()
 
 if __name__ == "__main__":
     main()
